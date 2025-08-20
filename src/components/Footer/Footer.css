@@ -1,0 +1,26 @@
+/* Footer.css */
+.footer {
+  background-color: #4CAF50; /* Updated footer color to a modern green */
+  color: #FFFFFF; /* White text for contrast */
+  padding: 20px 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-top: 1px solid #3C763D; /* Subtle border at the top */
+}
+
+.footer .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer .text-muted {
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.footer .text-muted:hover {
+  color: #DDDDDD; /* Lighter shade of white on hover */
+}

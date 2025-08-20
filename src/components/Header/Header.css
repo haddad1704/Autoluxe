@@ -1,0 +1,62 @@
+/* Header.css */
+.navbar_color {
+  background-color: #4CAF50; /* Updated header color to a modern green */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.navbar_color:hover {
+  background-color: #45a049; /* Slightly darker shade on hover */
+}
+
+.navbar_color .navbar-brand,
+.navbar_color .nav-link {
+  color: #FFFFFF; /* White text for contrast */
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.navbar_color .navbar-toggler {
+  border: none;
+  color: #FFFFFF; /* White color for the toggler */
+}
+
+.navbar_color .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.navbar_color .nav-link {
+  font-size: 16px;
+  margin: 0 10px;
+  transition: color 0.3s ease;
+}
+
+.navbar_color .nav-link:hover {
+  color: #DDDDDD; /* Lighter shade of white on hover */
+}
+
+.navbar_color .navbar-brand {
+  font-size: 24px;
+  margin-right: 20px;
+}
+
+.navbar_color .collapse.navbar-collapse {
+  justify-content: flex-end;
+}
+
+/* Modern Signin Button */
+.signin-btn {
+  background-color: #FF5722; /* Modern orange color */
+  color: #FFFFFF; /* White text for contrast */
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.signin-btn:hover {
+  background-color: #E64A19; /* Slightly darker shade on hover */
+}
