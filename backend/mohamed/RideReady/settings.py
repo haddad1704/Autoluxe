@@ -2,26 +2,19 @@ from pathlib import Path  # Outils chemin de fichiers
 import os  # Système de fichiers
 from datetime import timedelta  # Durées pour JWT
 
-# from .info import *
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+
 BASE_DIR = Path(__file__).resolve().parent.parent  # Racine du projet Django
 TEMPLATES_DIR = os.path.join(BASE_DIR,'templates')  # Dossier templates
 STATIC_DIR = os.path.join(BASE_DIR,'static')  # Dossier statiques
 MEDIA_DIR = os.path.join(BASE_DIR,'media')  # Dossier médias
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-06mgknabmwz8k&*%xt2n_++_mf^%lj-zt36x525(%x2&kv#k*x"  # Clé secrète dev (à protéger en prod)
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []  # Hôtes autorisés (vider ou configurer en prod)
 
 
-# Application definition
 
 INSTALLED_APPS = [  # Applications installées
     "django.contrib.admin",
@@ -74,8 +67,7 @@ TEMPLATES = [
 WSGI_APPLICATION = "RideReady.wsgi.application"  # Entrée WSGI
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
+
 
 DATABASES = {  # BDD par défaut (sqlite3 pour dev)
     "default": {
@@ -83,10 +75,6 @@ DATABASES = {  # BDD par défaut (sqlite3 pour dev)
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [  # Validations mots de passe
     {
@@ -104,8 +92,6 @@ AUTH_PASSWORD_VALIDATORS = [  # Validations mots de passe
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.2/topics/i18n/
 
 LANGUAGE_CODE = "en-us"  # Langue
 
@@ -116,23 +102,19 @@ USE_I18N = True  # Internationalisation
 USE_TZ = True  # Timezone aware
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 
 STATIC_URL = "static/"  # URL des assets statiques
 STATICFILES_DIRS = [STATIC_DIR]  # Répertoires statiques additionnels
 
 
-# Media
+
 MEDIA_ROOT = MEDIA_DIR  # Répertoire fichiers médias
 MEDIA_URL = "/media/"  # URL publique des médias
 
 AUTH_USER_MODEL = 'Account.User'  # Utilisateur custom
 
 LOGIN_URL = "/account/login/"  # URL login par défaut
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"  # PK par défaut
 
