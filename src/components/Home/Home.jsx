@@ -93,7 +93,8 @@ const Home = ({ fetchAllVehicle, fetchAllCategory, all_cars, isLoading ,notify, 
   if (isLoading) {
     all_car_show = <Loading />;
   } else {
-    all_car_show = filteredCars.map((item) => <Car key={item.id} car={item} />);
+    const visibleCars = (filteredCars || []).filter((c) => c?.check_booked === false);
+    all_car_show = visibleCars.map((item) => <Car key={item.id} car={item} />);
   }
    
   return (

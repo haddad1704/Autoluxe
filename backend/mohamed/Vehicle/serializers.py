@@ -21,7 +21,7 @@ class VehicleSerializer(serializers.ModelSerializer):
     def get_check_booked(self,obj):
         check_booked = False
         try:
-            check = Booking.objects.filter(vehicle__id = obj.id,payment_status=True).order_by('-id')
+            check = Booking.objects.filter(vehicle__id = obj.id).order_by('-id')
             if  check :
                 latest_booking = check[0]
                 if latest_booking.end_date >= date.today():
@@ -57,7 +57,7 @@ class AllVehicleSerializer(serializers.ModelSerializer):
     def get_check_booked(self,obj):
         check_booked = False
         try:
-            check = Booking.objects.filter(vehicle__id = obj.id,payment_status=True).order_by('-id')
+            check = Booking.objects.filter(vehicle__id = obj.id).order_by('-id')
             if  check :
                 latest_booking = check[0]
                 if latest_booking.end_date >= date.today():
@@ -91,7 +91,7 @@ class VehicleDetailSerializer(serializers.ModelSerializer):
     def get_check_booked(self,obj):
         check_booked = False
         try:
-            check = Booking.objects.filter(vehicle__id = obj.id,payment_status=True).order_by('-id')
+            check = Booking.objects.filter(vehicle__id = obj.id).order_by('-id')
             if  check :
                 latest_booking = check[0]
                 if latest_booking.end_date >= date.today():

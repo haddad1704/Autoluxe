@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className="bg-white border-t mt-8">
       <div className="container py-4 text-center text-gray-600">
-        © 2025 Mohamed Cars
+        © 2025 Autoluxe
       </div>
     </footer>
   );

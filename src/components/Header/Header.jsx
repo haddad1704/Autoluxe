@@ -48,7 +48,7 @@ const Header = (props) => {
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
               <i className="fas fa-car text-blue-600 text-2xl mr-2"></i>
-              <span className="text-xl font-bold text-blue-600">Mohamed Cars</span>
+              <span className="text-xl font-bold text-blue-600">Autoluxe</span>
             </Link>
           </div>
           <div className="hidden sm:flex sm:items-center">

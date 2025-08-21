@@ -12,7 +12,7 @@ const Car = ({ car }) => {
     if (car.check_booked === false) {
       context = <div className="text-success">Vous pouvez réserver</div>;
     }  else {
-      context = <div className="text-info">Déjà réservé</div>;
+      context = <div className="text-danger">Vous ne pouvez pas réserver</div>;
     }
   }
 
@@ -25,8 +25,9 @@ const Car = ({ car }) => {
             <div className="flex items-start justify-between">
               <div>
                 <h5 className="text-lg font-bold mb-1">{car.model}</h5>
-                <p className="text-gray-600 mb-0">Make: {car.make}</p>
-                <p className="text-gray-600 mb-2">Year: {car.year}</p>
+                <p className="text-gray-600 mb-0">Marque: {car.make}</p>
+                <p className="text-gray-600 mb-0">Année: {car.year}</p>
+                <p className="text-gray-800 font-semibold mb-2">Prix/jour: ${car.price_per_day}</p>
                 <p className="text-sm"><span className="text-gray-600">Catégorie:</span> <b>{car.category.name}</b></p>
               </div>
             </div>

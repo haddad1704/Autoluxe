@@ -13,8 +13,6 @@ const mapStateToProps = (state) => ({
 
 
 const BookingForm = ({ toggle,token,userId,user_type,car  }) => {
-  const [responseUrl, setResponseUrl] = useState("");
-
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -37,30 +35,20 @@ const BookingForm = ({ toggle,token,userId,user_type,car  }) => {
    e.preventDefault();
 
    try {
-    //  let url = baseUrl + "api/booking/";
-     let url = baseUrl +"api"+"/"+ "booking/"+car.id+"/payment/";
-     console.log(url);
+     const url = baseUrl + "api/booking/";
      const config = {
        headers: {
-         "Content-Type": "application/json", 
+         "Content-Type": "application/json",
          Authorization: `Bearer ${token}`,
        },
      };
-    //  console.log(config);
-     axios.post(url, formData,config)
-     .then(response=>setResponseUrl(response.data))
-     .catch(error=>console.log(error));
-    //  console.log(responseUrl);
-    //  navigate(responseUrl["GatewayPageURL"]);
+     await axios.post(url, formData, config);
      toggle();
+     navigate("/all-booked");
    } catch (error) {
      console.error("Error submitting booking:", error);
    }
  };
-
- if (responseUrl) {
-  window.location.href = responseUrl['GatewayPageURL'];
- }
 
   const today = new Date().toISOString().split("T")[0];
 

@@ -25,7 +25,22 @@ class BookingViewSet(viewsets.ModelViewSet):  # CRUD standard pour les réservat
          user = self.request.user 
          queryset = Booking.objects.filter(client__id = user.id)
          return queryset
+    
+    def destroy(self, request, *args, **kwargs):
+        # Get the booking before deletion
+        booking = self.get_object()
+        vehicle = booking.vehicle
         
+        # Delete the booking
+        response = super().destroy(request, *args, **kwargs)
+        
+        # The check_booked field is calculated dynamically by the serializer
+        # based on active paid bookings, so no need to manually update it
+        # The next time the vehicle data is fetched, it will automatically
+        # show the correct availability status
+        
+        return response
+
 
 class BookingListAPIView(generics.ListAPIView):  # Liste des réservations du client
     queryset = Booking.objects.all()
@@ -185,8 +200,8 @@ def purchase(request, payment_data,data):  # Crée la réservation après paieme
         payment_status=True,
         cost=cost
     )
-    # Redirige vers le frontend après succès
-    return redirect(settings.FRONTEND_URL)
+    # Redirige vers la page "Toutes les réservations" après succès
+    return redirect(settings.FRONTEND_URL + "all-booked")
 
 
 

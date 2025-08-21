@@ -31,6 +31,11 @@ const AllBooked = ({
   useEffect(() => {
     setAllBooked(all_booked_vehicle);
   }, [all_booked_vehicle]);
+
+  const handleDelete = (deletedId) => {
+    setAllBooked(prev => prev.filter(booking => booking.id !== deletedId));
+  };
+
   // console.log(allBooked);
 
   return (
@@ -42,7 +47,7 @@ const AllBooked = ({
         <div className="row">
           {allBooked.map((vehicle) => (
             <div key={vehicle.id} className="mb-2">
-              <AllBookedSingle vehicle={vehicle}/>
+              <AllBookedSingle vehicle={vehicle} onDelete={handleDelete}/>
             </div>
           ))}
         </div>
