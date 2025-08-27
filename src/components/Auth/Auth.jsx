@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../../redux/authActionCreators";
 import Spinner from "../Loading/Loading";
-import "./Auth.css"; // Import the CSS file
+import "./Auth.css"; 
 
 const Auth = ({ notify }) => {
   const [mode, setMode] = useState("Login");

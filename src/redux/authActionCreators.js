@@ -1,11 +1,10 @@
-import * as actionTypes from './actionTypes'; // Types d'actions
-import axios from 'axios'; // Client HTTP
-import { jwtDecode } from 'jwt-decode'; // Décodage JWT côté client
-import { baseUrl } from './baseUrls'; // URL API
+import * as actionTypes from './actionTypes'; 
+import axios from 'axios'; 
+import { jwtDecode } from 'jwt-decode'; 
+import { baseUrl } from './baseUrls'; 
 
 
-
-export const authSuccess = (token, userId, user_type) => { // Action: authentification réussie
+export const authSuccess = (token, userId, user_type) => {
      return {
           type: actionTypes.AUTH_SUCCESS,
           payload: {
@@ -16,7 +15,7 @@ export const authSuccess = (token, userId, user_type) => { // Action: authentifi
      };
 };
 
-export const authLoading = isLoading => { // Action: état de chargement auth
+export const authLoading = isLoading => { 
      return {
           type: actionTypes.AUTH_LOADING,
           payload: isLoading,
@@ -24,7 +23,7 @@ export const authLoading = isLoading => { // Action: état de chargement auth
 }
 
 
-export const authFailedMsg = errorMsg => { // Action: erreur d'auth
+export const authFailedMsg = errorMsg => { 
      return {
           type: actionTypes.AUTH_FAILED,
           payload: errorMsg,
@@ -32,7 +31,7 @@ export const authFailedMsg = errorMsg => { // Action: erreur d'auth
 }
 
 
-const saveTokenDataGetUserId = (access, user_type) => { // Sauvegarde token + extrait user_id
+const saveTokenDataGetUserId = (access, user_type) => { 
                const access_token = access
                const token = jwtDecode(access_token)
                localStorage.setItem('token', access_token);
@@ -45,14 +44,14 @@ const saveTokenDataGetUserId = (access, user_type) => { // Sauvegarde token + ex
 }
 
 
-export const auth = (email, password, passwordConfirm, user_type, mode) => dispatch => { // Login/Inscription
+export const auth = (email, password, passwordConfirm, user_type, mode) => dispatch => {
      dispatch(authLoading(true))
      const authData = {
           email: email,
           password: password,
           passwordConfirm: passwordConfirm,
           user_type: user_type,
-          // returnSecureToken: true,
+      
      }
      let authUrl = null;
      if (mode === "Sign Up" || mode === "Inscription") {
@@ -112,7 +111,7 @@ export const auth = (email, password, passwordConfirm, user_type, mode) => dispa
 
 }
 
-export const logout = () => { // Action de déconnexion + nettoyage localStorage
+export const logout = () => { 
      localStorage.removeItem('token');
      localStorage.removeItem('expirationTime');
      localStorage.removeItem('userId');
@@ -122,7 +121,7 @@ export const logout = () => { // Action de déconnexion + nettoyage localStorage
      }
 }
 
-export const remove_auth_message = () => { // Efface les messages d'auth
+export const remove_auth_message = () => { 
      return {
           type: actionTypes.REMOVE_AUTH_MESSAGE,
      }
@@ -130,7 +129,7 @@ export const remove_auth_message = () => { // Efface les messages d'auth
 
 
 
-export const authCheck = () => dispatch => { // Restaure la session si token valide
+export const authCheck = () => dispatch => { 
      
      const token = localStorage.getItem('token');
      if (!token) {
@@ -138,7 +137,6 @@ export const authCheck = () => dispatch => { // Restaure la session si token val
      } else {
           const expirationTime = new Date(localStorage.getItem('expirationTime'));
           if (expirationTime <= new Date()) {
-               // Logout
                dispatch(logout());
           } else {
                const userId = localStorage.getItem('userId');

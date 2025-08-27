@@ -1,8 +1,6 @@
-// import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-// import { baseUrl } from "../../redux/baseUrls";
 import { createVehicle, fetchAllCategory } from "../../redux/actions";
 
 
@@ -67,7 +65,6 @@ useEffect(() => {
 
   const handleSubmit = async (e) => {
   e.preventDefault();
-  // console.log(formData);
   try {
     const vehicleData = {
       make: formData.make,
@@ -98,7 +95,6 @@ useEffect(() => {
     });
   } catch (error) {
     notify("Vehicle does not create", "error");
-    // console.error("Error creating vehicle:", error);
   }
   };
 
@@ -117,10 +113,8 @@ useEffect(() => {
             value={formData.category}
             onChange={handleChange}
           >
-            {/* Default option */}
             <option value="">Sélectionnez une catégorie</option>
 
-            {/* Mapping categories */}
             {allCategoried.map((category, index) => (
               <option
                 key={category.id}

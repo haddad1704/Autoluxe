@@ -31,7 +31,6 @@ const SeeBookedVehicle = ({
   useEffect(() => {
     setSeeAllBooked(see_all_booked_vehicle);
   }, [see_all_booked_vehicle]);
-  // console.log(see_all_booked_vehicle);
   let see_all_booked = null;
   if (isLoading) {
     see_all_booked = <Loading />;

@@ -22,15 +22,12 @@ const CarDetail = ({ user_type, token }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const userId = useSelector((state) => state.userId);
 
-  // console.log(userId);
   useEffect(() => {
     const fetchCar = async () => {
       try {
         const response = await axios.get(url);
-        // console.log(response.data);
         setCar(response.data);
         setLoading(false);
-        //    console.log(response.data);
       } catch (error) {
         console.log(error);
         setLoading(false);

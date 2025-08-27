@@ -52,7 +52,6 @@ const VehicleFormUpdate = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(formData);
     try {
       const vehicleData = {
         make: formData.make,
@@ -62,7 +61,6 @@ const VehicleFormUpdate = ({
         description: formData.description,
         owner: localStorage.getItem("userId"),
         category: formData.category.id,
-        // image: formData?.image,
       };
       if (imageForm!==null) {
         vehicleData.image = imageForm;
@@ -72,7 +70,6 @@ const VehicleFormUpdate = ({
       if (formData.category !== "") {
         vehicleData.category = formData.category;
       }
-      // console.log(vehicleData);
 
       updateVehicle(vehicleData, token,vehicle.id);
       notify("Vehicle updated successfully", "success");
@@ -170,7 +167,6 @@ const VehicleFormUpdate = ({
             type="file"
             name="image"
             id="image"
-            // onChange={handleFileChange}
             onChange={(e) => {
               setImageForm(e.target.files[0]);
             }}

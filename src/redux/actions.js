@@ -29,8 +29,7 @@ export const fetchAllCategory = () => {
           try {
 
                const response = await axios.get(baseUrl + 'api/all-categories/');
-               // console.log(response.data);
-               // console.log(response.data);
+              
                dispatch(fetchAllCategorySuccess(response.data));
 
           } catch (error) {
@@ -65,7 +64,7 @@ export const fetchCategory = (token) => {
                     },
                };
                const response = await axios.get(baseUrl + 'api/category/', config);
-               // console.log(response.data);
+               
                dispatch(fetchCategorySuccess(response.data));
 
           } catch (error) {
@@ -109,7 +108,7 @@ export const createCategory = (categoryName, userId, token) => {
 
                dispatch(createCategorySuccess(response.data, fetchResponse.data));
           } catch (error) {
-               // console.log(error.response.data.name[0]);
+             
                dispatch(createCategoryFailure(error.response.data));
           }
      };
@@ -133,7 +132,7 @@ export const updateCategory = (categoryName, userId, token, id) => {
                const fetchResponse = await axios.get(baseUrl + 'api/category/', config);
                dispatch(createCategorySuccess(response.data, fetchResponse.data));
           } catch (error) {
-               // console.log(error.response.data.name[0]);
+             
                dispatch(createCategoryFailure(error.response.data));
           }
      };
@@ -154,7 +153,7 @@ export const deleteCategory = (token, id) => {
                const fetchResponse = await axios.get(baseUrl + 'api/category/', config);
                dispatch(createCategorySuccess(response.data, fetchResponse.data));
           } catch (error) {
-               // console.log(error.response.data.name[0]);
+              
                dispatch(createCategoryFailure(error.response.data));
           }
      };
@@ -191,8 +190,7 @@ export const fetchVehicle = (token) => {
                };
                const url = `${baseUrl}api/vehicle/`
                const response = await axios.get(url, config);
-               // console.log(response.data);
-               // console.log(response.data);
+               
                dispatch(fetchVehicleSuccess(response.data));
 
           } catch (error) {
@@ -224,10 +222,10 @@ export const createVehicle = (vehicleData, token) => {
                          Authorization: `Bearer ${token}`,
                     },
                };
-               // console.log(vehicleData, token);
+   
                const response = await axios.post(`${baseUrl}api/vehicle/`, vehicleData, config);
                const fetchResponse = await axios.get(`${baseUrl}api/vehicle/`, config);
-               // console.log(response.data);
+              
                dispatch(createVehicleSuccess(response.data.message, fetchResponse.data));
           } catch (error) {
                dispatch(createVehicleFailure(error.response.data.message));
@@ -247,7 +245,7 @@ export const updateVehicle = (vehicleData, token, id) => {
                };
                const response = await axios.put(`${baseUrl}api/vehicle/${id}/`, vehicleData, config);
                const fetchResponse = await axios.get(`${baseUrl}api/vehicle/`, config);
-               // console.log(response.data);
+              
                dispatch(createVehicleSuccess(response.data.message, fetchResponse.data));
 
           } catch (error) {
@@ -266,12 +264,12 @@ export const deleteVehicle = (id, token) => {
                     }
                };
                const response = await axios.delete(`${baseUrl}api/vehicle/${id}/`, config);
-               // console.log(response.data);
+              
                const fetchResponse = await axios.get(`${baseUrl}api/vehicle/`, config);
-               // console.log(response.data);
+         
                dispatch(createVehicleSuccess(response.data, fetchResponse.data));
           } catch (error) {
-               // console.log(error.response.data);
+               
                dispatch(createVehicleFailure(error.response.data.message));
           }
      };
@@ -305,7 +303,6 @@ export const fetchAllVehicle = () => {
           try {
 
                const response = await axios.get(baseUrl + 'api/all-cars/');
-               // console.log(response.data);
                dispatch(fetchAllVehicleSuccess(response.data));
 
           } catch (error) {
@@ -322,7 +319,6 @@ export const fetchAllVehicle = () => {
 
 
 
-// fetch all booked
 
 export const fetchAllBookedVehicleRequest = () => ({
      type: actionTypes.FETCH_ALL_BOOKED_VEHICLE_REQUEST
@@ -350,11 +346,9 @@ export const fetchAllBookedVehicle = (token) => {
                     },
                };
                let url = baseUrl + "api/all-booked/";
-               // console.log(url);
-               // console.log(token)
+              
                const response = await axios.get(url, config);
-               // console.log(response.data);
-               // console.log(response.data);
+               
                dispatch(fetchAllBookedVehicleSuccess(response.data));
 
           } catch (error) {
@@ -366,7 +360,6 @@ export const fetchAllBookedVehicle = (token) => {
 
 
 
-// fetch all see booked
 
 export const fetchAllSeeBookedVehicleRequest = () => ({
      type: actionTypes.FETCH_ALL_SEE_VEHICLE_REQUEST

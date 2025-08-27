@@ -20,9 +20,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 const Home = ({ fetchAllVehicle, fetchAllCategory, all_cars, isLoading ,notify, all_category }) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortOption, setSortOption] = useState("none"); // none | name_az | price_asc | price_desc
+  const [sortOption, setSortOption] = useState("none");
   const [filteredCars, setFilteredCars] = useState([]);
-  const [selectedCategoryIds, setSelectedCategoryIds] = useState([]); // multi-sélection catégories
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState([]); 
 
   useEffect(() => {
     fetchAllVehicle();
@@ -132,7 +132,7 @@ const Home = ({ fetchAllVehicle, fetchAllCategory, all_cars, isLoading ,notify, 
           </select>
         </div>
       </div>
-      {/* Filtres Catégories */}
+
       <div className="mb-3">
         <div className="d-flex flex-wrap gap-2 align-items-center">
           <button

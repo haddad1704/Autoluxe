@@ -1,24 +1,24 @@
-/* Header.css */
+
 .navbar_color {
-  background-color: #4CAF50; /* Updated header color to a modern green */
+  background-color: #4CAF50; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
 }
 
 .navbar_color:hover {
-  background-color: #45a049; /* Slightly darker shade on hover */
+  background-color: #45a049; 
 }
 
 .navbar_color .navbar-brand,
 .navbar_color .nav-link {
-  color: #FFFFFF; /* White text for contrast */
+  color: #FFFFFF; 
   font-weight: bold;
   text-transform: uppercase;
 }
 
 .navbar_color .navbar-toggler {
   border: none;
-  color: #FFFFFF; /* White color for the toggler */
+  color: #FFFFFF; 
 }
 
 .navbar_color .navbar-toggler-icon {
@@ -32,7 +32,7 @@
 }
 
 .navbar_color .nav-link:hover {
-  color: #DDDDDD; /* Lighter shade of white on hover */
+  color: #DDDDDD; 
 }
 
 .navbar_color .navbar-brand {
@@ -44,10 +44,10 @@
   justify-content: flex-end;
 }
 
-/* Modern Signin Button */
+
 .signin-btn {
-  background-color: #FF5722; /* Modern orange color */
-  color: #FFFFFF; /* White text for contrast */
+  background-color: #FF5722; 
+  color: #FFFFFF;
   border: none;
   padding: 8px 16px;
   border-radius: 5px;
@@ -58,5 +58,5 @@
 }
 
 .signin-btn:hover {
-  background-color: #E64A19; /* Slightly darker shade on hover */
+  background-color: #E64A19; 
 }

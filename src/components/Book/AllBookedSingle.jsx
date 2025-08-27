@@ -20,7 +20,7 @@ const AllBookedSingle = ({ vehicle, onDelete }) => {
         },
       };
       const data = {
-        client: vehicle.client, // backend ignores client, uses token user
+        client: vehicle.client,
         vehicle: vehicle.vehicle.id,
         start_date: vehicle.start_date,
         end_date: vehicle.end_date,

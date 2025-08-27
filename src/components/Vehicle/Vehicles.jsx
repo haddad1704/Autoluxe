@@ -25,7 +25,6 @@ const mapDispatchToProps = (dispatch) => ({
 const Vehicles = ({ token, vehicles, fetchVehicle, isLoading, notify }) => {
   const [modal, setModal] = useState(false);
   const [fetchedVehicles, setFetchedVehicles] = useState([]);
-  // console.log(vehicles);
 
   useEffect(() => {
     fetchVehicle(token);

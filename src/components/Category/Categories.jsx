@@ -6,31 +6,10 @@ import Category from "./Category";
 import "react-toastify/dist/ReactToastify.css";
 import CategoryForm from "./CategoryForm";
 import { fetchCategory } from "../../redux/actions";
-// import { toast, ToastContainer } from "react-toastify";
-// import { notificationTime } from "../../redux/baseUrls";
-// import "react-toastify/dist/ReactToastify.css";
-// import toast, { Toaster } from "react-hot-toast";
-// const mapStateToProps = (state) => ({
-//   isLoading: state.isLoading,
-//   category: state.category,
-//   successMsg: state.successMsg,
-//   errorMsg: state.errorMsg,
-//   token: state.token,
-// });
 
-// const mapDispatchToProps = (dispatch) => ({
-//   fetchCategory: (token) => dispatch(fetchCategory(token)),
-// });
 
 const Categories = ({ notify }) =>
-  //   {
-  //   category,
-  //   isLoading,
-  //   fetchCategory,
-  //   successMsg,
-  //   errorMsg,
-  //   token,
-  // }
+
 
   {
     const [categoryData, setCategoryData] = useState([]);
@@ -38,8 +17,7 @@ const Categories = ({ notify }) =>
 
     const category = useSelector((state) => state.category);
     const isLoading = useSelector((state) => state.isLoading);
-    // const successMsg = useSelector((state) => state.successMsg);
-    // const errorMsg = useSelector((state) => state.errorMsg);
+   
     const token = useSelector((state) => state.token);
 
     const dispatch = useDispatch();
@@ -47,7 +25,6 @@ const Categories = ({ notify }) =>
     useEffect(() => {
       dispatch(fetchCategory(token));
     }, [dispatch, token]);
-    // console.log(successMsg);
     useEffect(() => {
       setCategoryData(category);
     }, [category]);

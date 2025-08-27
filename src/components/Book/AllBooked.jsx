@@ -36,7 +36,6 @@ const AllBooked = ({
     setAllBooked(prev => prev.filter(booking => booking.id !== deletedId));
   };
 
-  // console.log(allBooked);
 
   return (
     <div className="container">

@@ -16,7 +16,6 @@ const ToastNotification = ({ message, type }) => {
       break;
   }
   
-  // const toastClassName = `bg-${type}`;
 
 
   return (

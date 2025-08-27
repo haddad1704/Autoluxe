@@ -1,13 +1,13 @@
-/* Footer.css */
+
 .footer {
-  background-color: #4CAF50; /* Updated footer color to a modern green */
-  color: #FFFFFF; /* White text for contrast */
+  background-color: #4CAF50; 
+  color: #FFFFFF; 
   padding: 20px 0;
   text-align: center;
   font-size: 14px;
   font-weight: bold;
   text-transform: uppercase;
-  border-top: 1px solid #3C763D; /* Subtle border at the top */
+  border-top: 1px solid #3C763D; 
 }
 
 .footer .container {
@@ -22,5 +22,5 @@
 }
 
 .footer .text-muted:hover {
-  color: #DDDDDD; /* Lighter shade of white on hover */
+  color: #DDDDDD; 
 }

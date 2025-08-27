@@ -9,7 +9,6 @@ const Logout = ({ notify }) => {
   
   useEffect(() => {
     dispatch(logout());
-    // notify("Logout Successfully", "info");
     navigate("/");
     
   }, [dispatch, navigate,notify]);

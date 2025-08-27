@@ -24,7 +24,6 @@ const Vehicle = ({ vehicle, notify }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  // console.log(vehicle);
 
   return (
     <div>

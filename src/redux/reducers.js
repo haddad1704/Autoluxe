@@ -1,7 +1,6 @@
-import * as actionTypes from './actionTypes'; // Types d'actions disponibles
+import * as actionTypes from './actionTypes'; 
 
-
-const initialState = { // État global initial de l'application
+const initialState = { 
 
      all_category:[],
      all_booked_vehicle: [],
@@ -20,7 +19,6 @@ const initialState = { // État global initial de l'application
      warningMsg: null,
 
      token: null,
-     // expirationTime:0,
      user_type:"",
      userId: null,
      authLoading: false,
@@ -32,7 +30,7 @@ const initialState = { // État global initial de l'application
      bookedRooms:[]
 };
 
-const reducer = (state = initialState, action) => { // Réducteur principal
+const reducer = (state = initialState, action) => { 
      switch (action.type) {
           case actionTypes.CREATE_CATEGORY_SUCCESS:
                return {
@@ -50,7 +48,6 @@ const reducer = (state = initialState, action) => { // Réducteur principal
                     errorMsg: action.payload
                };
 
-          // Récupération des catégories
           case actionTypes.FETCH_ALL_CATEGORY_REQUEST:
                return {
                     ...state,
@@ -76,7 +73,6 @@ const reducer = (state = initialState, action) => { // Réducteur principal
 
 
 
-          // Récupération des catégories (propriétaire)
           case actionTypes.FETCH_CATEGORY_REQUEST:
                return {
                     ...state,
@@ -100,7 +96,6 @@ const reducer = (state = initialState, action) => { // Réducteur principal
                     error: action.payload
                }
 
-          // Récupération des véhicules (propriétaire)
           case actionTypes.FETCH_VEHICLE_REQUEST:
                return {
                     ...state,
@@ -124,7 +119,6 @@ const reducer = (state = initialState, action) => { // Réducteur principal
                     error: action.payload
                }
 
-          // Tous les véhicules (public)
           case actionTypes.FETCH_ALL_VEHICLE_REQUEST:
                return {
                     ...state,
@@ -149,7 +143,6 @@ const reducer = (state = initialState, action) => { // Réducteur principal
                }
 
 
-          // Réservations du client
           case actionTypes.FETCH_ALL_BOOKED_VEHICLE_REQUEST:
                return {
                     ...state,
@@ -174,7 +167,6 @@ const reducer = (state = initialState, action) => { // Réducteur principal
                }
 
 
-          // Réservations côté propriétaire (voir toutes)
           case actionTypes.FETCH_ALL_SEE_VEHICLE_REQUEST:
                return {
                     ...state,
@@ -199,7 +191,6 @@ const reducer = (state = initialState, action) => { // Réducteur principal
                }
 
 
-          // Création/Mise à jour/Suppression véhicule: met à jour la liste locale
 
           case actionTypes.CREATE_VEHICLE_SUCCESS:
                return {
@@ -218,7 +209,6 @@ const reducer = (state = initialState, action) => { // Réducteur principal
                };
 
           
-          // Authentification
           case actionTypes.AUTH_SUCCESS:
                return {
                     ...state,
@@ -227,7 +217,6 @@ const reducer = (state = initialState, action) => { // Réducteur principal
                     user_type: action.payload.user_type,
                     authSuccessMsg: "Successfully Login",
                     authCheckResponse: true,
-                    // errorMsg: "There is no error",
                };
 
 

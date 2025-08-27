@@ -1,4 +1,3 @@
-// Navbar.js
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import "./Header.css";
