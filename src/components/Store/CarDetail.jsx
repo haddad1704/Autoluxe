@@ -84,7 +84,7 @@ const CarDetail = ({ user_type, token }) => {
             <div className="col-md-8">
               <h2 className="text-2xl font-bold mb-2">{car.make} {car.model} <span className="text-gray-600">({car.year})</span></h2>
               <p className="text-gray-600 mb-2">Catégorie: <b>{car.category.name}</b></p>
-              <p className="mb-3">Prix par jour: $ <b>{car.price_per_day}</b></p>
+              <p className="mb-3">Prix par jour: € <b>{car.price_per_day}</b></p>
             </div>
             <div className="col-md-4 text-end">
               {context}

@@ -74,7 +74,7 @@ const AllBookedSingle = ({ vehicle, onDelete }) => {
         </CardTitle>
         Date de début: {vehicle.start_date} <br />
         Date de fin: {vehicle.end_date} <br />
-        Coût total: ${vehicle.total_cost} <br />
+        Coût total: €{vehicle.total_cost} <br />
         ID: <b>{vehicle.uuid}</b> <br />
         <div className="mt-3 d-flex gap-2">
           {vehicle.payment_status ? (

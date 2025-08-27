@@ -53,7 +53,7 @@ const Payment = () => {
         <div className="col-md-5">
           <h3 className="mb-2">{car.make} {car.model} ({car.year})</h3>
           <p className="mb-1"><strong>Catégorie:</strong> {car.category?.name}</p>
-          <p className="mb-3"><strong>Prix par jour:</strong> $ {car.price_per_day}</p>
+          <p className="mb-3"><strong>Prix par jour:</strong> € {car.price_per_day}</p>
 
           <div className="card p-3">
             <h5 className="mb-3">Finalisez votre réservation</h5>

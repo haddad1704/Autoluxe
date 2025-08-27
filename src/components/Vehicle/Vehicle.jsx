@@ -41,7 +41,7 @@ const Vehicle = ({ vehicle, notify }) => {
                 <strong>Année:</strong> {vehicle.year}
               </CardText>
               <CardText>
-                <strong>Prix par jour:</strong> ${vehicle.price_per_day}
+                <strong>Prix par jour:</strong> €{vehicle.price_per_day}
               </CardText>
             </div>
             <div className="col-md-4">

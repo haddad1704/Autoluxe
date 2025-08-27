@@ -27,10 +27,4 @@ class Booking(models.Model):  # Modèle de réservation
     def __str__(self):  # Représentation lisible de l'objet
         return f'Booking for {self.vehicle} by {self.client.username}'
 
-    # def calculate_cost(self):  # Exemple de méthode pour calculer le coût
-    #     delta = self.end_date - self.start_date  # Différence de jours
-    #     return delta.days * self.vehicle.price_per_day  # coût = nb jours * prix/jour
-
-    # def save(self, *args, **kwargs):  # Exemple pour stocker automatiquement le coût
-    #     self.cost = self.calculate_cost()
-    #     super().save(*args, **kwargs)
+    
