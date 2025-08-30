@@ -1,15 +1,20 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { useSelector } from "react-redux";
-import { Card, CardBody, CardTitle } from "reactstrap";
-import { baseUrl } from "../../redux/baseUrls";
+/**
+ * Carte `AllBookedSingle`.
+ * Affiche les détails d’une réservation et permet de payer via redirection
+ * ou de supprimer la réservation après confirmation.
+ */
+import React, { useState } from "react"; // Hook d’état local
+import axios from "axios"; // Client HTTP
+import { useSelector } from "react-redux"; // Accès au token
+import { Card, CardBody, CardTitle } from "reactstrap"; // UI carte
+import { baseUrl } from "../../redux/baseUrls"; // URL base API
 
-const AllBookedSingle = ({ vehicle, onDelete }) => {
-  const token = useSelector((state) => state.token);
-  const [loading, setLoading] = useState(false);
-  const [deleteLoading, setDeleteLoading] = useState(false);
+const AllBookedSingle = ({ vehicle, onDelete }) => { // Composant fonctionnel
+  const token = useSelector((state) => state.token); // Token pour auth
+  const [loading, setLoading] = useState(false); // Chargement paiement
+  const [deleteLoading, setDeleteLoading] = useState(false); // Chargement suppression
 
-  const handlePay = async () => {
+  const handlePay = async () => { // Démarre le paiement via l’API
     try {
       setLoading(true);
       const url = baseUrl + `api/booking/${vehicle.vehicle.id}/payment/`;
@@ -26,10 +31,10 @@ const AllBookedSingle = ({ vehicle, onDelete }) => {
         end_date: vehicle.end_date,
         phone: vehicle.phone,
       };
-      const response = await axios.post(url, data, config);
-      const gatewayUrl = response?.data?.GatewayPageURL;
+      const response = await axios.post(url, data, config); // Requête paiement
+      const gatewayUrl = response?.data?.GatewayPageURL; // URL du prestataire
       if (gatewayUrl) {
-        window.location.href = gatewayUrl;
+        window.location.href = gatewayUrl; // Redirection vers le paiement
       }
     } catch (err) {
       console.error(err);
@@ -38,7 +43,7 @@ const AllBookedSingle = ({ vehicle, onDelete }) => {
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async () => { // Supprime la réservation (avec confirmation)
     if (window.confirm("Êtes-vous sûr de vouloir supprimer cette réservation ?")) {
       try {
         setDeleteLoading(true);
@@ -48,9 +53,9 @@ const AllBookedSingle = ({ vehicle, onDelete }) => {
             Authorization: `Bearer ${token}`,
           },
         };
-        await axios.delete(url, config);
+        await axios.delete(url, config); // Appel suppression
         if (onDelete) {
-          onDelete(vehicle.id);
+          onDelete(vehicle.id); // Informe le parent de retirer l’élément
         }
       } catch (err) {
         console.error("Erreur lors de la suppression:", err);

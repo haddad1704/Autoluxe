@@ -1,5 +1,10 @@
+"""
+Définition des routes (urls.py) de l'application Account.
 
-from django.urls import path
+Ajoutez ici les chemins d'API liés à l'authentification (inscription, login, etc.).
+"""
 
-urlpatterns = [
+from django.urls import path  # Utilitaire de routage Django
+
+urlpatterns = [  # Liste des routes spécifiques à Account (vide pour l'instant)
 ]

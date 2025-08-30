@@ -1,22 +1,26 @@
-import React from "react";
-import { connect } from "react-redux";
-import {deleteVehicle } from "../../redux/actions";
+/**
+ * Composant `DeleteVehicle`.
+ * Demande confirmation et déclenche la suppression d’un véhicule.
+ */
+import React from "react"; // React
+import { connect } from "react-redux"; // Connexion Redux
+import {deleteVehicle } from "../../redux/actions"; // Action de suppression
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({ // Sélection du token
   token: state.token,
 });
 
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({ // Mappe l’action en prop
   deleteVehicle: (id, token) => dispatch(deleteVehicle(id, token)),
 });
 
-const DeleteVehicle = ({ vehicle, toggle, token, deleteVehicle, notify }) => {
-  const handleDelete = () => {
-    deleteVehicle(vehicle.id, token);
-    notify("Vehicle deleted successfully", "warning");
-    toggle();
+const DeleteVehicle = ({ vehicle, toggle, token, deleteVehicle, notify }) => { // Composant fonctionnel
+  const handleDelete = () => { // Valide la suppression
+    deleteVehicle(vehicle.id, token); // Dispatch suppression
+    notify("Vehicle deleted successfully", "warning"); // Notifie l’utilisateur
+    toggle(); // Ferme la modale
   };
 
   return (

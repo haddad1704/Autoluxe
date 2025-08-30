@@ -1,20 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { fetchAllCategory, updateVehicle } from "../../redux/actions";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+/**
+ * Formulaire `VehicleFormUpdate`.
+ * Permet de mettre à jour un véhicule existant et éventuellement son image.
+ */
+import React, { useEffect, useState } from "react"; // Hooks React
+import { connect } from "react-redux"; // Connexion Redux
+import { fetchAllCategory, updateVehicle } from "../../redux/actions"; // Actions
+import { Button, Form, FormGroup, Label, Input } from "reactstrap"; // Composants UI
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({ // Sélecteurs
   all_category: state.all_category,
   token: state.token,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({ // Mappe actions
   fetchAllCategory: () => dispatch(fetchAllCategory()),
   updateVehicle: (vehicleData, token, id) =>
     dispatch(updateVehicle(vehicleData, token, id)),
 });
 
-const VehicleFormUpdate = ({
+const VehicleFormUpdate = ({ // Définition du composant
   fetchAllCategory,
   token,
   toggle,
@@ -23,11 +27,11 @@ const VehicleFormUpdate = ({
   vehicle,
   notify
 }) => {
-  const [allCategoried, setAllCategoried] = useState([]);
-  const [imageForm, setImageForm] = useState(null);
+  const [allCategoried, setAllCategoried] = useState([]); // Options catégories
+  const [imageForm, setImageForm] = useState(null); // Fichier image sélectionné
 
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({ // État du formulaire pré-rempli
     make: vehicle.make,
     model: vehicle.model,
     year: vehicle.year,
@@ -37,12 +41,12 @@ const VehicleFormUpdate = ({
     category: vehicle.category,
   });
 
-  useEffect(() => {
+  useEffect(() => { // Synchronise liste catégories
     setAllCategoried(all_category);
   }, [all_category]);
 
 
-  const handleChange = (e) => {
+  const handleChange = (e) => { // Mise à jour champs texte/select
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -50,7 +54,7 @@ const VehicleFormUpdate = ({
   };
 
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => { // Soumission de la mise à jour
     e.preventDefault();
     try {
       const vehicleData = {
@@ -63,20 +67,18 @@ const VehicleFormUpdate = ({
         category: formData.category.id,
       };
       if (imageForm!==null) {
-        vehicleData.image = imageForm;
-        
+        vehicleData.image = imageForm; // Ajoute le fichier image si présent
       }
 
       if (formData.category !== "") {
-        vehicleData.category = formData.category;
+        vehicleData.category = formData.category; // Écrase si catégorie choisie
       }
 
-      updateVehicle(vehicleData, token,vehicle.id);
+      updateVehicle(vehicleData, token,vehicle.id); // Dispatch mise à jour
       notify("Vehicle updated successfully", "success");
-      toggle();
+      toggle(); // Ferme la modale
 
-
-      setFormData({
+      setFormData({ // Reset formulaire
         make: "",
         model: "",
         year: "",

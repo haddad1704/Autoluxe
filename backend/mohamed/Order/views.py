@@ -1,3 +1,12 @@
+"""
+Vues (views.py) de l'application Order.
+
+- BookingViewSet: CRUD des réservations restreint à l'utilisateur connecté.
+- BookingListAPIView / SeeBookingListAPIView: listes filtrées pour client et propriétaire.
+- BookingPaymentView: initialise un paiement via SSLC, calcule le coût.
+- complete/purchase: callbacks de paiement pour finaliser la réservation.
+"""
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from rest_framework import viewsets, permissions, generics
@@ -15,49 +24,49 @@ from django.contrib.auth.decorators import login_required
 import ast
 import json
 
-class BookingViewSet(viewsets.ModelViewSet):
-    queryset = Booking.objects.all()
-    serializer_class = BookingSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class BookingViewSet(viewsets.ModelViewSet):  # ViewSet CRUD réservé à l'utilisateur connecté
+    queryset = Booking.objects.all()  # Base (filtrée ensuite)
+    serializer_class = BookingSerializer  # Sérialiseur CRUD
+    permission_classes = [permissions.IsAuthenticated]  # JWT requis
     
-    def get_queryset(self):
+    def get_queryset(self):  # Restreint aux réservations de l'utilisateur connecté (client)
         user = self.request.user
         queryset = Booking.objects.filter(client__id=user.id)
         return queryset
     
-    def destroy(self, request, *args, **kwargs):
-        booking = self.get_object()
-        vehicle = booking.vehicle
-        response = super().destroy(request, *args, **kwargs)
-        return response
+    def destroy(self, request, *args, **kwargs):  # Suppression d'une réservation
+        booking = self.get_object()  # Récupère l'objet ciblé
+        vehicle = booking.vehicle  # Exemple d'accès au véhicule (non utilisé ici)
+        response = super().destroy(request, *args, **kwargs)  # Appel parent
+        return response  # Retourne la réponse
 
 
-class BookingListAPIView(generics.ListAPIView):
-    queryset = Booking.objects.all()
-    serializer_class = BookingModelSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class BookingListAPIView(generics.ListAPIView):  # Liste des réservations de l'utilisateur
+    queryset = Booking.objects.all()  # Base
+    serializer_class = BookingModelSerializer  # Détail avec coût total
+    permission_classes = [permissions.IsAuthenticated]  # JWT requis
     
-    def get_queryset(self):
+    def get_queryset(self):  # Liste des réservations du client connecté
         user = self.request.user
         queryset = Booking.objects.filter(client__id=user.id)
         return queryset
 
 
-class SeeBookingListAPIView(generics.ListAPIView):
-    queryset = Booking.objects.all()
-    serializer_class = SeeBookingModelSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class SeeBookingListAPIView(generics.ListAPIView):  # Liste pour propriétaire (ses véhicules)
+    queryset = Booking.objects.all()  # Base
+    serializer_class = SeeBookingModelSerializer  # Détail avec client et véhicule
+    permission_classes = [permissions.IsAuthenticated]  # JWT requis
     
-    def get_queryset(self):
+    def get_queryset(self):  # Liste des réservations des véhicules du propriétaire
         user = self.request.user
         queryset = Booking.objects.filter(vehicle__owner__id=user.id)
         return queryset
 
 
-class BookingPaymentView(APIView):
-    permission_classes = [permissions.IsAuthenticated]
+class BookingPaymentView(APIView):  # Initialise la session de paiement
+    permission_classes = [permissions.IsAuthenticated]  # JWT requis
 
-    def post(self, request, vehicle_id):
+    def post(self, request, vehicle_id):  # Prépare la session de paiement et redirige vers la passerelle
         serializer = BookingSerializerPayment(data=request.data)
         serializer.client = request.user
         vehicle = Vehicle.objects.get(id=vehicle_id)
@@ -110,14 +119,14 @@ class BookingPaymentView(APIView):
             phone=request.data['phone']
         )
 
-        response_data = sslc_session.init_payment()
-        print(response_data)
+        response_data = sslc_session.init_payment()  # Lance la session auprès du PSP
+        print(response_data)  # Journalisation simple (dev)
 
         return Response(response_data)
 
 
-@csrf_exempt
-def complete(request):
+@csrf_exempt  # La passerelle ne fournit pas de CSRF token
+def complete(request):  # Callback de la passerelle, redirige selon le statut
     if request.method == 'POST':
         payment_data = request.POST
         vehicle_id = request.GET.get('vehicle_id')
@@ -149,7 +158,7 @@ def complete(request):
             return redirect(settings.FRONTEND_URL)
 
 
-def purchase(request, payment_data, data):
+def purchase(request, payment_data, data):  # Création de la réservation après paiement valide
     data = ast.literal_eval(data)
 
     start_date = data['start_date']

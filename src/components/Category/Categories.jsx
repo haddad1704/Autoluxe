@@ -1,16 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-import Loading from "../Loading/Loading";
-import Category from "./Category";
-import "react-toastify/dist/ReactToastify.css";
-import CategoryForm from "./CategoryForm";
-import { fetchCategory } from "../../redux/actions";
+/**
+ * Page `Categories`.
+ * Affiche la liste des catégories d’un propriétaire, permet d’ouvrir un
+ * formulaire pour en ajouter, et gère le chargement depuis l’API via Redux.
+ */
+import React, { useEffect, useState } from "react"; // Hooks React
+import { useDispatch, useSelector } from "react-redux"; // Hooks Redux
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap"; // Composants UI (reactstrap)
+import Loading from "../Loading/Loading"; // Loader
+import Category from "./Category"; // Élément visuel d’une catégorie
+import "react-toastify/dist/ReactToastify.css"; // Styles toasts
+import CategoryForm from "./CategoryForm"; // Formulaire catégorie
+import { fetchCategory } from "../../redux/actions"; // Action pour récupérer les catégories
 
 
 const Categories = ({ notify }) =>
-
-
   {
     const [categoryData, setCategoryData] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,27 +25,27 @@ const Categories = ({ notify }) =>
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
+    useEffect(() => { // Charge les catégories au montage/au changement de token
       dispatch(fetchCategory(token));
     }, [dispatch, token]);
-    useEffect(() => {
+    useEffect(() => { // Synchronise le state local avec Redux
       setCategoryData(category);
     }, [category]);
 
-    let category_show = null;
+    let category_show = null; // Zone d’affichage des catégories
     if (isLoading) {
-      category_show = <Loading />;
+      category_show = <Loading />; // Loader
     } else {
       category_show = categoryData.map((cat) => (
-        <Category key={cat.id} notify={notify} category={cat} />
+        <Category key={cat.id} notify={notify} category={cat} /> // Carte catégorie
       ));
     }
 
-    const openModal = () => {
+    const openModal = () => { // Ouvre la modale d’ajout
       setIsModalOpen(true);
     };
 
-    const closeModal = () => {
+    const closeModal = () => { // Ferme la modale d’ajout
       setIsModalOpen(false);
     };
 

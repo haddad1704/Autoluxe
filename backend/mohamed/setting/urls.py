@@ -1,3 +1,9 @@
+"""
+Routage principal (urls.py) du projet.
+
+Inclut les routes d'admin, les routes de l'app `Api` et expose la documentation Swagger/Redoc.
+"""
+
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
@@ -20,15 +26,15 @@ schema_view = get_schema_view(
     permission_classes=(permissions.AllowAny,),
 )
 
-urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", include('Account.urls')),
-    path("api/", include('Api.urls')),
-    path('api/v1/',
+urlpatterns = [  # Routing principal
+    path("admin/", admin.site.urls),  # Interface d'administration
+    path("", include('Account.urls')),  # (placeholder) routes Account
+    path("api/", include('Api.urls')),  # Routes API agrégées
+    path('api/v1/',  # Documentation de l'API
          include([
-                path('swagger.json/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-                path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-                path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+                path('swagger.json/', schema_view.without_ui(cache_timeout=0), name='schema-json'),  # JSON brut
+                path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),  # UI Swagger
+                path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),  # UI Redoc
          ])
          )
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # Fichiers média en dev

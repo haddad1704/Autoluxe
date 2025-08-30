@@ -1,26 +1,31 @@
-import React, { useState } from "react";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-import CategoryForm from "./CategoryForm";
-import DeleteCategory from "./DeleteCategory";
+/**
+ * Élément `Category`.
+ * Affiche le nom de la catégorie et fournit des actions pour la mettre à jour
+ * ou la supprimer via des modales.
+ */
+import React, { useState } from "react"; // Hook d’état local
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap"; // Composants UI
+import CategoryForm from "./CategoryForm"; // Formulaire d’édition/ajout
+import DeleteCategory from "./DeleteCategory"; // Composant de confirmation de suppression
 
 
-const Category = ({ category, notify }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalOpenDelete, setIsModalOpenDelete] = useState(false);
+const Category = ({ category, notify }) => { // Composant fonctionnel avec props
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modale de mise à jour
+  const [isModalOpenDelete, setIsModalOpenDelete] = useState(false); // Modale de suppression
 
-  const openModal = () => {
+  const openModal = () => { // Ouvre la modale de mise à jour
     setIsModalOpen(true);
   };
 
-  const closeModal = () => {
+  const closeModal = () => { // Ferme la modale de mise à jour
     setIsModalOpen(false);
   };
 
-  const openModalDelete = () => {
+  const openModalDelete = () => { // Ouvre la modale de suppression
     setIsModalOpenDelete(true);
   };
 
-  const closeModalDelete = () => {
+  const closeModalDelete = () => { // Ferme la modale de suppression
     setIsModalOpenDelete(false);
   };
 

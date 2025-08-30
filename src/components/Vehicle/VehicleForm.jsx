@@ -1,21 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { connect } from "react-redux";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { createVehicle, fetchAllCategory } from "../../redux/actions";
+/**
+ * Formulaire `VehicleForm`.
+ * Permet de créer un véhicule avec upload d’image et sélection de catégorie.
+ */
+import React, { useEffect, useState } from "react"; // Hooks React
+import { connect } from "react-redux"; // Connexion Redux
+import { Button, Form, FormGroup, Label, Input } from "reactstrap"; // Composants UI
+import { createVehicle, fetchAllCategory } from "../../redux/actions"; // Actions
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({ // Sélecteurs
   token: state.token,
   userId: state.userId,
   categories: state.all_category,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({ // Mappe actions en props
   fetchAllCategory: () => dispatch(fetchAllCategory()),
   createVehicle: (vehicleData, token) => dispatch(createVehicle(vehicleData, token)),
 });
 
-const VehicleForm = ({
+const VehicleForm = ({ // Définition du composant
   token,
   toggle,
   userId,
@@ -26,14 +30,14 @@ const VehicleForm = ({
   notify
 
 }) => {
-  const [allCategoried, setAllCategoried] = useState([]);
+  const [allCategoried, setAllCategoried] = useState([]); // Options de catégories
 
-  useEffect(() => {
+  useEffect(() => { // Charge les catégories au montage
     fetchAllCategory();
   }, [fetchAllCategory]);
 
   
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({ // État du formulaire
     make: "",
     model: "",
     year:  "" ,
@@ -42,28 +46,26 @@ const VehicleForm = ({
     description:  "" ,
     category:  "",
   });
-useEffect(() => {
+useEffect(() => { // Synchronise la liste des catégories
   setAllCategoried(categories);
 }, [categories]);
 
 
-  const handleChange = (e) => {
-    
+  const handleChange = (e) => { // Mise à jour des champs texte/select
       setFormData({
         ...formData,
         [e.target.name]: e.target.value,
       });
-    
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = (e) => { // Mise à jour du fichier image
     setFormData({
       ...formData,
       [e.target.name]: e.target.files[0],
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => { // Soumission du formulaire
   e.preventDefault();
   try {
     const vehicleData = {
@@ -77,14 +79,11 @@ useEffect(() => {
       image:formData.image
     };
 
-
+    createVehicle(vehicleData, token); // Dispatch création
+    notify('Vehicle Created successfully','success') // Notification succès
+    toggle(); // Ferme la modale
     
-    createVehicle(vehicleData, token);
-    notify('Vehicle Created successfully','success')
-    toggle();
-    
-
-    setFormData({
+    setFormData({ // Réinitialise le formulaire
       make: "",
       model: "",
       year: "",
@@ -94,7 +93,7 @@ useEffect(() => {
       category: "",
     });
   } catch (error) {
-    notify("Vehicle does not create", "error");
+    notify("Vehicle does not create", "error"); // Notification échec
   }
   };
 

@@ -1,21 +1,26 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { connect } from "react-redux";
-import { baseUrl } from "../../redux/baseUrls";
-import { useNavigate } from "react-router-dom";
+/**
+ * Formulaire `BookingForm`.
+ * Crée une réservation pour un véhicule en envoyant les dates et le téléphone.
+ * Redirige ensuite l’utilisateur vers la page de ses réservations.
+ */
+import React, { useState } from "react"; // Hook d’état local
+import axios from "axios"; // Client HTTP
+import { connect } from "react-redux"; // Connexion Redux
+import { baseUrl } from "../../redux/baseUrls"; // URL de base API
+import { useNavigate } from "react-router-dom"; // Navigation programmée
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({ // Sélection des infos d’auth
   user_type: state.user_type,
   token: state.token,
   userId: state.userId,
 });
 
 
-const BookingForm = ({ toggle,token,userId,user_type,car  }) => {
-  const navigate = useNavigate();
+const BookingForm = ({ toggle,token,userId,user_type,car  }) => { // Définition du composant
+  const navigate = useNavigate(); // Hook de navigation
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({ // État des champs du formulaire
     client: userId,
     vehicle: car.id,
     start_date: "",
@@ -23,7 +28,7 @@ const BookingForm = ({ toggle,token,userId,user_type,car  }) => {
     phone: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e) => { // Mise à jour d’un champ
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -31,26 +36,26 @@ const BookingForm = ({ toggle,token,userId,user_type,car  }) => {
     });
   };
 
- const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => { // Soumission de la réservation
    e.preventDefault();
 
    try {
-     const url = baseUrl + "api/booking/";
+     const url = baseUrl + "api/booking/"; // Endpoint de réservation
      const config = {
        headers: {
          "Content-Type": "application/json",
          Authorization: `Bearer ${token}`,
        },
      };
-     await axios.post(url, formData, config);
-     toggle();
-     navigate("/all-booked");
+     await axios.post(url, formData, config); // Envoi des données
+     toggle(); // Ferme la modale (si présente)
+     navigate("/all-booked"); // Redirection vers la liste des réservations
    } catch (error) {
      console.error("Error submitting booking:", error);
    }
  };
 
-  const today = new Date().toISOString().split("T")[0];
+  const today = new Date().toISOString().split("T")[0]; // Date du jour (format YYYY-MM-DD)
 
   return (
     <form onSubmit={handleSubmit}>

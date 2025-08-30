@@ -1,20 +1,25 @@
-import React, { useState } from "react";
-import { Card, CardBody, CardTitle, CardText } from "reactstrap";
+/**
+ * Carte `Vehicle` (propriétaire).
+ * Affiche les détails d’un véhicule et propose des actions de mise à jour
+ * et de suppression via des modales.
+ */
+import React, { useState } from "react"; // Hook d’état
+import { Card, CardBody, CardTitle, CardText } from "reactstrap"; // Carte UI
 
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
-import VehicleFormUpdate from "./VehicleFormUpdate";
-import DeleteVehicle from "./DeleteVehicle";
+import { Button, Modal, ModalHeader, ModalBody } from "reactstrap"; // Modales + boutons
+import VehicleFormUpdate from "./VehicleFormUpdate"; // Formulaire de mise à jour
+import DeleteVehicle from "./DeleteVehicle"; // Confirm suppression
 
 
-const Vehicle = ({ vehicle, notify }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalOpenUpdate, setisModalOpenUpdate] = useState(false);
+const Vehicle = ({ vehicle, notify }) => { // Composant Vehicle
+  const [isModalOpen, setIsModalOpen] = useState(false); // État modale suppression
+  const [isModalOpenUpdate, setisModalOpenUpdate] = useState(false); // État modale mise à jour
 
-  const openModalUpdate = () => {
+  const openModalUpdate = () => { // Ouvre la modale de mise à jour
     setisModalOpenUpdate(true);
   };
 
-  const closeModalDelete = () => {
+  const closeModalDelete = () => { // Ferme la modale de mise à jour
     setisModalOpenUpdate(false);
   };
   const openModal = () => {

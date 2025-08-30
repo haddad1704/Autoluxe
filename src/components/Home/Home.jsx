@@ -1,11 +1,16 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { connect } from "react-redux";
-import { fetchAllVehicle, fetchAllCategory } from "../../redux/actions";
-import Loading from "../Loading/Loading";
-import Car from "../Store/Car";
+/**
+ * Page d’accueil `Home`.
+ * Charge les voitures et catégories, offre recherche, tri et filtrage par
+ * catégorie, puis affiche une grille de véhicules disponibles.
+ */
+import React, { useEffect, useMemo, useState } from "react"; // Hooks React
+import { connect } from "react-redux"; // Connexion Redux
+import { fetchAllVehicle, fetchAllCategory } from "../../redux/actions"; // Actions données
+import Loading from "../Loading/Loading"; // Indicateur de chargement
+import Car from "../Store/Car"; // Carte d’un véhicule
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({ // Sélecteurs de l’état global
   token: state.token,
   user_type: state.user_type,
   all_cars: state.all_cars,
@@ -13,27 +18,27 @@ const mapStateToProps = (state) => ({
   all_category: state.all_category,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({ // Dispatchers d’actions
   fetchAllVehicle: () => dispatch(fetchAllVehicle()),
   fetchAllCategory: () => dispatch(fetchAllCategory()),
 });
 
-const Home = ({ fetchAllVehicle, fetchAllCategory, all_cars, isLoading ,notify, all_category }) => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortOption, setSortOption] = useState("none");
-  const [filteredCars, setFilteredCars] = useState([]);
-  const [selectedCategoryIds, setSelectedCategoryIds] = useState([]); 
+const Home = ({ fetchAllVehicle, fetchAllCategory, all_cars, isLoading ,notify, all_category }) => { // Composant Home
+  const [searchQuery, setSearchQuery] = useState(""); // Terme de recherche
+  const [sortOption, setSortOption] = useState("none"); // Option de tri
+  const [filteredCars, setFilteredCars] = useState([]); // Liste filtrée/triée
+  const [selectedCategoryIds, setSelectedCategoryIds] = useState([]); // Catégories sélectionnées
 
-  useEffect(() => {
+  useEffect(() => { // Charge les données initiales
     fetchAllVehicle();
     fetchAllCategory();
   }, [fetchAllVehicle, fetchAllCategory]);
 
-  useEffect(() => {
+  useEffect(() => { // Met à jour la liste affichée quand all_cars change
     setFilteredCars(all_cars);
   }, [all_cars]);
 
-  const applyFilterAndSort = useMemo(() => {
+  const applyFilterAndSort = useMemo(() => { // Fabrique une fonction pure de filtrage/tri
     return (cars, query, sortBy, selectedIds) => {
       const normalizedQuery = (query || "").toLowerCase();
       let working = Array.isArray(cars) ? [...cars] : [];
@@ -59,23 +64,23 @@ const Home = ({ fetchAllVehicle, fetchAllCategory, all_cars, isLoading ,notify, 
         working.sort((a, b) => parseFloat(b?.price_per_day || 0) - parseFloat(a?.price_per_day || 0));
       }
 
-      return working;
+      return working; // Retourne la liste transformée
     };
   }, []);
 
-  useEffect(() => {
+  useEffect(() => { // Recalcule la vue à chaque changement pertinent
     setFilteredCars(applyFilterAndSort(all_cars, searchQuery, sortOption, selectedCategoryIds));
   }, [all_cars, searchQuery, sortOption, selectedCategoryIds, applyFilterAndSort]);
 
-  const handleSearchChange = (e) => {
+  const handleSearchChange = (e) => { // MAJ recherche
     setSearchQuery(e.target.value);
   };
 
-  const handleSortChange = (e) => {
+  const handleSortChange = (e) => { // MAJ option de tri
     setSortOption(e.target.value);
   };
 
-  const toggleCategory = (categoryId) => {
+  const toggleCategory = (categoryId) => { // Ajoute/Retire une catégorie du filtre
     setSelectedCategoryIds((prev) => {
       const exists = prev.includes(categoryId);
       if (exists) {
@@ -85,16 +90,16 @@ const Home = ({ fetchAllVehicle, fetchAllCategory, all_cars, isLoading ,notify, 
     });
   };
 
-  const clearCategories = () => {
+  const clearCategories = () => { // Réinitialise le filtre catégories
     setSelectedCategoryIds([]);
   };
 
-  let all_car_show = null;
+  let all_car_show = null; // Contenu de la grille principale
   if (isLoading) {
-    all_car_show = <Loading />;
+    all_car_show = <Loading />; // Affiche le loader
   } else {
-    const visibleCars = (filteredCars || []).filter((c) => c?.check_booked === false);
-    all_car_show = visibleCars.map((item) => <Car key={item.id} car={item} />);
+    const visibleCars = (filteredCars || []).filter((c) => c?.check_booked === false); // Filtre véhicules non réservés
+    all_car_show = visibleCars.map((item) => <Car key={item.id} car={item} />); // Rend les cartes
   }
    
   return (

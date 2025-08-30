@@ -1,21 +1,26 @@
-import React, { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import "./Header.css";
-import { connect } from "react-redux";
+/**
+ * Composant `Header`.
+ * Barre de navigation responsive affichant des liens différents selon
+ * l’état de connexion et le type d’utilisateur (client/propriétaire).
+ */
+import React, { useState } from "react"; // React + hook pour l’état local (menu mobile)
+import { Link, NavLink } from "react-router-dom"; // Liens de navigation
+import "./Header.css"; // Styles du header
+import { connect } from "react-redux"; // Connexion au store Redux
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state) => { // Récupère les infos d’auth depuis le storage
   return {
     token: localStorage.getItem("token"),
     user_type: localStorage.getItem("user_type"),
   };
 };
 
-const Header = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+const Header = (props) => { // Définition du composant Header
+  const [isOpen, setIsOpen] = useState(false); // État d’ouverture du menu mobile
 
-  const toggle = () => setIsOpen(!isOpen);
-  let links;
-  if (props.token) {
+  const toggle = () => setIsOpen(!isOpen); // Bascule l’état du menu mobile
+  let links; // Zone pour stocker les liens à afficher
+  if (props.token) { // Si connecté
     if (props.user_type === `client`) {
       links = (
         <div className="flex items-center space-x-4">

@@ -1,33 +1,38 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams, Link } from "react-router-dom";
-import { baseUrl } from "../../redux/baseUrls";
-import Loading from "../Loading/Loading";
-import BookingForm from "../Book/BookingForm";
+/**
+ * Page `Payment`.
+ * Récupère la voiture ciblée, affiche ses informations et intègre le
+ * formulaire de réservation pour finaliser l’opération.
+ */
+import React, { useEffect, useState } from "react"; // Hooks React
+import axios from "axios"; // Client HTTP
+import { useParams, Link } from "react-router-dom"; // Accès aux paramètres de route + lien
+import { baseUrl } from "../../redux/baseUrls"; // URL de base API
+import Loading from "../Loading/Loading"; // Indicateur de chargement
+import BookingForm from "../Book/BookingForm"; // Formulaire de réservation
 
-const Payment = () => {
-  const { id } = useParams();
-  const [car, setCar] = useState(null);
-  const [loading, setLoading] = useState(true);
+const Payment = () => { // Composant Payment
+  const { id } = useParams(); // Identifiant du véhicule à charger
+  const [car, setCar] = useState(null); // Données du véhicule
+  const [loading, setLoading] = useState(true); // Flag de chargement
 
-  useEffect(() => {
-    const url = baseUrl + "api/car/" + id;
+  useEffect(() => { // Charge la voiture cible par son id
+    const url = baseUrl + "api/car/" + id; // Compose l’URL
     const fetchCar = async () => {
       try {
-        const response = await axios.get(url);
-        setCar(response.data);
+        const response = await axios.get(url); // Appel API
+        setCar(response.data); // Renseigne les données
       } catch (error) {
-        console.log(error);
+        console.log(error); // Log l’erreur
       } finally {
-        setLoading(false);
+        setLoading(false); // Arrête le loader
       }
     };
     fetchCar();
   }, [id]);
 
-  const noop = () => {};
+  const noop = () => {}; // Callback neutre (non utilisé ici)
 
-  if (loading) {
+  if (loading) { // Pendant le chargement
     return (
       <div className="container">
         <Loading />
@@ -35,7 +40,7 @@ const Payment = () => {
     );
   }
 
-  if (!car) {
+  if (!car) { // Cas d’erreur: véhicule non trouvé
     return (
       <div className="container">
         <div className="alert alert-danger mt-3">Voiture introuvable.</div>

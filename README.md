@@ -264,3 +264,5 @@ Pour le support et les questions :
 ---
 
 **Note :** Ce projet a été renommé de "RideReady" à "setting" pendant le développement. Toutes les références ont été mises à jour en conséquence.
+
+

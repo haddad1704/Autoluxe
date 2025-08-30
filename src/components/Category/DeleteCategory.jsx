@@ -1,23 +1,26 @@
-import React from "react";
-import { connect } from "react-redux";
-import { deleteCategory } from "../../redux/actions";
+/**
+ * Composant `DeleteCategory`.
+ * Affiche une confirmation et déclenche la suppression d’une catégorie.
+ */
+import React from "react"; // React
+import { connect } from "react-redux"; // Connexion Redux
+import { deleteCategory } from "../../redux/actions"; // Action de suppression
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state) => ({ // Sélectionne le token depuis le store
   token: state.token,
 });
 
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => ({ // Mappe la suppression en prop
   deleteCategory: (token, id) => dispatch(deleteCategory(token, id)),
 });
 
-const DeleteCategory = ({ category, deleteCategory, toggle,token,notify }) => {
-  
-  const handleDelete = () => {
-    deleteCategory(token, category.id);
-    notify('Supprimé avec succès','warning')
-    toggle(); 
+const DeleteCategory = ({ category, deleteCategory, toggle,token,notify }) => { // Props du composant
+  const handleDelete = () => { // Valide la suppression
+    deleteCategory(token, category.id); // Dispatch suppression
+    notify('Supprimé avec succès','warning') // Notifie l’utilisateur
+    toggle(); // Ferme la modale
   };
 
   return (
